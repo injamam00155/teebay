@@ -14,7 +14,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ToggleBar from '.components/ToggleBar'; // Import the ToggleBar component
+import ToggleBar from './components/ToggleBar'; // Import the ToggleBar component
 
 const myProducts = [
   { id: 1, name: 'Product 1', description: 'Description for Product 1' },
