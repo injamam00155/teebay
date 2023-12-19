@@ -1,0 +1,76 @@
+type User {
+  id: Int
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  address: String
+  phone: String
+  products: [Product]
+}
+
+type Category {
+  id: Int
+  name: String
+  products: [Product]
+}
+
+type Product {
+  id: Int
+  productTitle: String
+  category: Category
+  description: String
+  price: Float
+  rent: Float
+  user: [User]
+}
+
+type Query {
+  users: [User]
+  user(id: Int!): User
+  categories: [Category]
+  category(id: Int!): Category
+  products: [Product]
+  product(id: Int!): Product
+}
+
+type Mutation {
+  createUser(data: UserInput!): User
+  updateUser(id: Int!, data: UserInput!): User
+  deleteUser(id: Int!): User
+
+  createCategory(data: CategoryInput!): Category
+  updateCategory(id: Int!, data: CategoryInput!): Category
+  deleteCategory(id: Int!): Category
+
+  createProduct(data: ProductInput!): Product
+  updateProduct(id: Int!, data: ProductInput!): Product
+  deleteProduct(id: Int!): Product
+
+  signIn(email: String!, password: String!): AuthToken
+}
+
+type AuthToken {
+  token: String
+}
+
+input UserInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  address: String
+  phone: String
+}
+
+input CategoryInput {
+  name: String
+}
+
+input ProductInput {
+  productTitle: String
+  categoryId: Int
+  description: String
+  price: Float
+  rent: Float
+}

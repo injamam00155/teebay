@@ -15,8 +15,7 @@ model User {
   password  String
   address   String
   phone     String
-  Product   Product? @relation(fields: [productId], references: [id])
-  productId Int?
+  products   Product[]
 }
 
 model Category {
@@ -33,6 +32,7 @@ model Product {
   description String
   price       Float
   rent        Float
-  users       User[]
+  user       User? @relation(fields: [userId], references: [id])
+  userId     Int?
 }
 
