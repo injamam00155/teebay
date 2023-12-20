@@ -1,7 +1,7 @@
 // example.js
 const axios = require('axios');
 
-function startExampleServer(app) {
+function startUserServer(app) {
   // Express route to fetch data from GraphQL server
   app.get('/users', async (req, res) => {
     try {
@@ -36,4 +36,4 @@ function startExampleServer(app) {
   });
 }
 
-module.exports = startExampleServer;
+module.exports = startUserServer;
