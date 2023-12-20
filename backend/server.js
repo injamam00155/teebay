@@ -6,7 +6,7 @@ const { readFileSync } = require('fs');
 const { join } = require('path');
 const resolvers = require('./resolvers');
 
-function startApolloServer(port) {
+function startApolloServer() {
   // Read the GraphQL schema from the file
   const schemaFilePath = join(__dirname, 'schema.graphql');
   const typeDefs = readFileSync(schemaFilePath, 'utf-8');
@@ -18,19 +18,4 @@ function startApolloServer(port) {
   return server;
 }
 
-async function startServer() {
-  const server = startApolloServer();
-  await server.start(); // Wait for server to start before applying middleware
-
-  const app = express();
-
-  // Integrate Apollo Server with Express
-  server.applyMiddleware({ app });
-
-  const PORT = process.env.PORT || port;
-  app.listen(PORT, () => {
-    console.log(`GraphQL Server is running on http://localhost:${PORT}${server.graphqlPath}`);
-  });
-}
-
-module.exports = startServer;
+module.exports = startApolloServer;

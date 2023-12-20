@@ -1,12 +1,9 @@
-const express = require('express');
+// example.js
 const axios = require('axios');
 
-function startExampleServer(port) {
-  const app = express();
-  const PORT = process.env.PORT || port;
-
+function startExampleServer(app) {
   // Express route to fetch data from GraphQL server
-  app.get('/', async (req, res) => {
+  app.get('/users', async (req, res) => {
     try {
       // GraphQL server API endpoint
       const graphqlServerUrl = 'http://localhost:5050/graphql';
@@ -36,10 +33,6 @@ function startExampleServer(port) {
       console.error('Error fetching data from GraphQL server:', error.message);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  });
-
-  app.listen(PORT, () => {
-    console.log(`Express server is running on http://localhost:${PORT}`);
   });
 }
 

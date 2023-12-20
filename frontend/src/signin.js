@@ -13,19 +13,42 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+    try {
+      const response = await axios.post('http://localhost:5000/auth/login', formData);
+
+      // Assuming the server returns a token upon successful login
+      const { token } = response.data;
+
+      // Store the token in localStorage or a secure storage method
+      localStorage.setItem('token', token);
+
+      // Redirect to the product list page
+      navigate('/some-route');
+    } catch (error) {
+      console.error('Login failed:', error.response?.data?.message || 'Unknown error');
+    }
+  };
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
     });
   };
 
